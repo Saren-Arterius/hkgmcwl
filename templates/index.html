@@ -4,6 +4,9 @@
 	<head>
 		<title>Whitelist registration</title>
         <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'hkgmcwl/base64.js' %}"></script>
+        <script type="text/javascript" src="{% static 'hkgmcwl/handle.js' %}"></script>
 	</head>
     <body class='ui_basic login-page'>
         <div class='container'>
@@ -21,17 +24,16 @@
                     <h3 class='page-title'>Register</h3>
                     <form accept-charset="UTF-8" action="/newuser" class="new_user" id="new_user" method="get">
                     <div style="margin:0;padding:0;display:inline"></div>
-                        <input autofocus="autofocus" class="text top" id="user_login" name="hkg_uid" placeholder="HKGolden user ID" type="text" />
-                        <input class="text bottom" id="user_password" name="ingame_username" placeholder="In-game username" ype="text" />
+                        <input autofocus="autofocus" class="text top" id="user_login" name="user[login]" placeholder="Username or Email" type="text" />
+                        <input class="text bottom" id="user_password" name="user[password]" placeholder="Password" type="password" />
                         <div>
                             <input class="btn-create btn" name="commit" type="submit" value="Sign in" />
                         </div>
                     </form>
                     <hr>
                     <p>
-                        <span class='light'>Server IP: www.wtako.coms.hk:44444</span>
-                        <span class='light'>Server map: <a href="//www.wtako.coms.hk:44445">www.wtako.coms.hk:44445</a></span>
-                        <span class='light'>Powered by: <a href="//forum.wtako.coms.hk">WTAKO SERVER</a></span>
+                        <span class='light'>Did not receive confirmation email?</span>
+                        <a href="/users/confirmation/new">Send again</a>
                     </p>
                 </div>
             </div>
