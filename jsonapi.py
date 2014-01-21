@@ -62,7 +62,7 @@ class MinecraftJsonApi (object):
                 method = method,
                 password = self.password,
                 salt = self.salt
-            )
+            ).encode()
         ).hexdigest()
     
     def __createURL(self, method, args):
