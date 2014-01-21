@@ -223,6 +223,7 @@ class MinecraftJsonApi (object):
         Make a remote call and return the raw response.
         '''
         url = self.__createURL(method, args)
+        raise Exception(url)
         result = urlopen(url).read()
         return result
                 
@@ -232,7 +233,6 @@ class MinecraftJsonApi (object):
         Make a remote call and return the JSON response.
         '''
         data = self.rawCall(method, *args)
-        raise Exception(data)
         result = json.loads(data)
         if result['result'] =='success':
             return result['success']    
