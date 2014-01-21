@@ -233,8 +233,9 @@ class MinecraftJsonApi (object):
         '''
         data = self.rawCall(method, *args)
         result = json.loads(data.decode())
+        raise Exception(result)
         if result['result'] =='success':
-            return result['success']    
+            return result
         else:
             raise Exception('(%s) %s' %(result['result'], result[result['result']]))
     
