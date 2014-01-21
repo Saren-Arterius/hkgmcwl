@@ -232,6 +232,7 @@ class MinecraftJsonApi (object):
         Make a remote call and return the JSON response.
         '''
         data = self.rawCall(method, *args)
+        raise Exception(repr(data))
         result = json.loads(data)
         if result['result'] =='success':
             return result['success']    
