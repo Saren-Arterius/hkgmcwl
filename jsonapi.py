@@ -292,33 +292,3 @@ class MinecraftJsonApi (object):
             return method[0]
         else:
             return None
-
-if __name__ == '__main__':
-    # Some basic test code
-    # Read params
-     paramDefaults = {'host': 'localhost', 'port':20059, 'username':'admin', 'password':'demo', 'salt':''}
-     filterFuncs = {'host': str, 'port': int, 'username': str, 'password': str, 'salt': str}
-     params = {}
-     for k in list(paramDefaults.keys()):
-         value = eval(input("%s (%s): " % (k.capitalize(), str(paramDefaults[k]))))
-         if len(value):
-             params[k] = filterFuncs[k](value)
-         else:
-            params[k] = paramDefaults[k]
-     
-     api = MinecraftJsonApi(
-         host = params['host'], 
-         port = params['port'], 
-         username = params['username'], 
-         password = params['password'], 
-         salt = params['salt']
-     )
-    
-    print([m['method_name'] for m in api.getLoadedMethods()])
-    print((api.getMethod('kickPlayer')))    
-    x = True
-    while x:
-        method = eval(input('>'))
-        print((api.getMethod(method)))
-        method = eval(input('->'))
-        print((api.call(method)))
