@@ -3,12 +3,12 @@
 import json
 import socket
 from hashlib import sha256
-from urllib2 import urlopen
-from urllib import quote
+from urllib.request import urlopen
+from urllib.parse import quote
 
 def urlencode(query):
 	if isinstance(query, dict):
-		query = query.items()
+		query = list(query.items())
 	pairs = []
 	for item in query:
 		pairs.append("%s=%s" % (item[0], quote(str(item[1]))))
@@ -299,8 +299,8 @@ if __name__ == '__main__':
  	paramDefaults = {'host': 'localhost', 'port':20059, 'username':'admin', 'password':'demo', 'salt':''}
  	filterFuncs = {'host': str, 'port': int, 'username': str, 'password': str, 'salt': str}
  	params = {}
- 	for k in paramDefaults.keys():
- 		value = raw_input("%s (%s): " % (k.capitalize(), str(paramDefaults[k])))
+ 	for k in list(paramDefaults.keys()):
+ 		value = eval(input("%s (%s): " % (k.capitalize(), str(paramDefaults[k]))))
  		if len(value):
 	 		params[k] = filterFuncs[k](value)
 	 	else:
@@ -315,10 +315,10 @@ if __name__ == '__main__':
  	)
 	
 	print([m['method_name'] for m in api.getLoadedMethods()])
-	print (api.getMethod('kickPlayer'))	
+	print((api.getMethod('kickPlayer')))	
 	x = True
 	while x:
-		method = raw_input('>')
-		print (api.getMethod(method))
-		method = raw_input('->')
-		print api.call(method)
+		method = eval(input('>'))
+		print((api.getMethod(method)))
+		method = eval(input('->'))
+		print((api.call(method)))
