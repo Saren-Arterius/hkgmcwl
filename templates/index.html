@@ -9,20 +9,11 @@
         <script type="text/javascript" src="{% static 'hkgmcwl/handle.js' %}"></script>
 	</head>
     <body class='ui_basic login-page'>
-        <div class='flash-container'>
-            <div class='flash-alert'>
-                You need to sign in before continuing.
-            </div>
-        </div>
         <div class='container'>
             <div class='content'>
                 <center>
-                    <h1>GitLab</h1>
-                    <p class='light'>
-                        GitLab is open source software to collaborate on code.
-                        <br>
-                        <a href="/users/sign_in">Sign in</a> or browse for <a href="/public/projects">public projects</a>.
-                    </p>
+                    <h1>Whitelist registration</h1>
+                    <p class='light'>In order to protect your gaming, it's necessary to </p>    
                 </center>
             </div>
         </div>
@@ -31,19 +22,12 @@
             <div class='content'>
                 <div class='login-box'>
                     <h3 class='page-title'>Sign in</h3>
-                    <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="Qn4GfMH9mkshs2nTPLzdDLr2d8KfSW3yXwD2g988Cgc=" /></div><input autofocus="autofocus" class="text top" id="user_login" name="user[login]" placeholder="Username or Email" type="text" />
+                    <form accept-charset="UTF-8" action="/newuser" class="new_user" id="new_user" method="get">
+                    <div style="margin:0;padding:0;display:inline"></div>
+                        <input autofocus="autofocus" class="text top" id="user_login" name="user[login]" placeholder="Username or Email" type="text" />
                         <input class="text bottom" id="user_password" name="user[password]" placeholder="Password" type="password" />
-                        <div class='clearfix append-bottom-10'>
-                            <label class='checkbox remember_me' for='user_remember_me'>
-                                <input name="user[remember_me]" type="hidden" value="0" /><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1" />
-                                <span>Remember me</span>
-                            </label>
-                        </div>
                         <div>
                             <input class="btn-create btn" name="commit" type="submit" value="Sign in" />
-                            <div class='pull-right'>
-                                <a class="btn" href="/users/password/new">Forgot your password?</a>
-                            </div>
                         </div>
                     </form>
                     <hr>
