@@ -6,6 +6,6 @@ from hkgmcwl.jsonapi import *
 
 def index(request):
     #return render(request, 'stockprice/index.html'a, {})
-    conn = MinecraftJsonApi(host='localhost', port=44446, username='admin', password='password')
+    conn = MinecraftJsonApi(host='localhost', port = 44446, username = 'admin', password = 'password', salt = '')
     a = conn.call("players.name.send_message", "saren", "test")
     return StreamingHttpResponse(repr(a))
