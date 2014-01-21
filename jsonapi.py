@@ -48,9 +48,9 @@ class MinecraftJsonApi (object):
         http://ramblingwood.com/minecraft/jsonapi/
     '''
     
-    __basic_url = 'http://{host}:{port}/api/call?{query}'
-    __multi_url = 'http://{host}:{port}/api/call-multiple?{query}'
-    __subscribe_url = '/api/subscribe?{query}'
+    __basic_url = 'http://{host}:{port}/api/2/call?{query}'
+    __multi_url = 'http://{host}:{port}/api/2/call-multiple?{query}'
+    __subscribe_url = '/api/2/subscribe?{query}'
     __letters = list('abcdefghijklmnopqrstuvwxyz')
         
     def __createkey(self, method):
@@ -223,7 +223,6 @@ class MinecraftJsonApi (object):
         Make a remote call and return the raw response.
         '''
         url = self.__createURL(method, args)
-        raise Exception(url)
         result = urlopen(url).read()
         return result
                 
