@@ -37,9 +37,9 @@ def isValid(dict):
         raise Exception("5") #Username 3-20
     elif len(findall("^[A-Za-z0-9_]+$", dict["mc_name"])) == 0:
         raise Exception("6") #Regex not match
-    elif Whitelist.objects.filter(hkg_uid = dict["hkg_uid"]):
+    elif Whitelist.objects.filter(hkg_uid__iexact = dict["hkg_uid"]):
         raise Exception("7") #hkg_uid exists
-    elif Whitelist.objects.filter(mc_name = dict["mc_name"]):
+    elif Whitelist.objects.filter(mc_name__iexact = dict["mc_name"]):
         raise Exception("8") #mc_name exists
     else:
         return True
