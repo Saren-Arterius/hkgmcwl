@@ -33,10 +33,11 @@ def confirm(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
-    #try:
-    isValid(data)
-    #except Exception as e:
-        #return HttpResponsePermanentRedirect("../error/{0}".format(e))
+    raise Exception(data)
+    try:
+        isValid(data)
+    except Exception as e:
+        return HttpResponsePermanentRedirect("../error/{0}".format(e))
     for server in range(1,15):
         try:
             url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
