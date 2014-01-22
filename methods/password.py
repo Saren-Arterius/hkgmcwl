@@ -12,11 +12,10 @@ import json
 
 def password(request):
     if request.GET:
-        try:
-            if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
-        except Exception:
+        if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
             return HttpResponseRedirect("error/{0}".format(11))
-        return HttpResponseRedirect(request.GET["hkg_uid"])
+        else:
+            return HttpResponseRedirect(request.GET["hkg_uid"])
     else:
         return render(request, 'password.html', {})
 
