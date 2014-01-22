@@ -58,7 +58,7 @@ def confirmSuccess(request, base64encoded):
 
 def confirmDo(request, base64encoded):
     ip = getClientIP(request)
-    if cache.get("reqTimesLeft_{0}".format(ip)) <= 0:
+    if cache.get("reqTimesLeft_{0}".format(ip)) and cache.get("reqTimesLeft_{0}".format(ip)) <= 0:
         return HttpResponseRedirect("error/{0}".format(50))
     elif cache.get("reqTimesLeft_{0}".format(ip)):
         cache.decr("reqTimesLeft_{0}".format(ip))
