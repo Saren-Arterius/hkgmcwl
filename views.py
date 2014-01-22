@@ -28,15 +28,19 @@ def confirmPage(request):
     return render(request, 'confirm.html', context)
 
 def confirm(request, base64encoded):
-    jsonString = b64decode(base64encoded).decode()
+    jsonString = b64decode(base64encoded)
     data = json.loads(jsonString)
     for server in range(1,15):
-        url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
-        request = urllib.request.urlopen(url)
-        page = request.read().decode("big5", "replace")
-        field = pq(page)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
-        break
-    raise Exception(field)
+        try:
+            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
+            request = urllib.request.urlopen(url)
+            page = request.read().decode("big5", "replace")
+            field = pq(page)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
+            break
+        except:
+            pass
+    if field != base64encoded:
+        return HttpResponsePermanentRedirect("../../error/{0}".format(7))
 
 def confirmError(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
