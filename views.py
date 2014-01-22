@@ -46,7 +46,7 @@ def confirmDo(request, base64encoded):
     try:
         isValid(data)
     except Exception as e:
-        return HttpResponseRedirect("../error/{0}".format(e))
+        return HttpResponseRedirect("error/{0}".format(e))
         
     for server in range(1,15):
         try:
