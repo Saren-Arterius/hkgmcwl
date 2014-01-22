@@ -20,3 +20,15 @@ def confirmPage(request):
     base64encoded = base64.b64encode(json)
     context = {"hkg_uid": HttpRequest.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
+    
+def confirmError(request):
+    json = json.dumps({"hkg_uid": HttpRequest.GET["hkg_uid"], "ig_name": HttpRequest.GET["ig_name"]})
+    base64encoded = base64.b64encode(json)
+    context = {"hkg_uid": HttpRequest.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+    return render(request, 'confirm.html', context)
+    
+def confirm(request):
+    json = json.dumps({"hkg_uid": HttpRequest.GET["hkg_uid"], "ig_name": HttpRequest.GET["ig_name"]})
+    base64encoded = base64.b64encode(json)
+    context = {"hkg_uid": HttpRequest.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+    return render(request, 'confirm.html', context)
