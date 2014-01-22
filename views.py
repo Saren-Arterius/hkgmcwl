@@ -22,7 +22,7 @@ def confirmPage(request):
         isValid(request.GET)
     except Exception as e:
         return HttpResponsePermanentRedirect("../error/{0}".format(e))
-    jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
+    jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "mc_name": request.GET["mc_name"]})
     base64encoded = b64encode(jsonString.encode())
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
@@ -30,6 +30,7 @@ def confirmPage(request):
 def confirm(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
+    field = False
     for server in range(1,15):
         try:
             url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
@@ -39,8 +40,10 @@ def confirm(request, base64encoded):
             break
         except:
             pass
+    if not field:
+        return HttpResponsePermanentRedirect("../error/{0}".format(100)) #Down server
     if field != base64encoded:
-        return HttpResponsePermanentRedirect("../../error/{0}".format(7))
+        return HttpResponsePermanentRedirect("../error/{0}".format(101)) #Wrong
 
 def confirmError(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
@@ -54,7 +57,7 @@ def isValid(dict):
         raise Exception("1") #Not exist
         
     try:
-        dict["ig_name"]
+        dict["mc_name"]
     except:
         raise Exception("2") #Not exist
         
@@ -66,11 +69,14 @@ def isValid(dict):
     if len(str(dict["hkg_uid"])) > 6:
         raise Exception("4") #Too long
         
-    if len(dict["ig_name"]) not in range(3,21):
+    if len(dict["mc_name"]) not in range(3,21):
         raise Exception("5") #Username 3-20
 
-    if len(findall("^[A-Za-z0-9_]+$", dict["ig_name"])) == 0:
+    if len(findall("^[A-Za-z0-9_]+$", dict["mc_name"])) == 0:
         raise Exception("6") #Regex not match
+        
+    if Whitelist.objects.filter(ip=ip):
+        return render(request, 'analytic/index.html', {})
         
     return True
     
