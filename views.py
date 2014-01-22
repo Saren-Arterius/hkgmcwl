@@ -42,26 +42,26 @@ def isValid(dict):
     try:
         dict["hkg_uid"]
     except:
-        raise Exception("3") #Not exist
-        
-    try:
-        int(dict["hkg_uid"])
-    except:
-        raise Exception("1") #Not correct
-        
-    if len(str(dict["hkg_uid"])) > 6:
-        raise Exception("2") #Too long
+        raise Exception("1") #Not exist
         
     try:
         dict["ig_name"]
     except:
-        raise Exception("3") #Not exist
+        raise Exception("2") #Not exist
+        
+    try:
+        int(dict["hkg_uid"])
+    except:
+        raise Exception("3") #Not correct
+        
+    if len(str(dict["hkg_uid"])) > 6:
+        raise Exception("4") #Too long
         
     if len(dict["ig_name"]) > 20 or len(dict["ig_name"]) == 0:
-        raise Exception("4") #Username 1-20
+        raise Exception("5") #Username 1-20
 
     if findall("^[A-Za-z0-9_]+$", dict["ig_name"]) == 0:
-        raise Exception("5") #Regex not match
+        raise Exception("6") #Regex not match
         
     return True
     
