@@ -18,7 +18,7 @@ def error(request, code):
     
 def confirmPage(request):
     try:
-        isValid(dict)
+        isValid(request.GET)
     except Exception as e:
         return HttpResponsePermanentRedirect("../error/{0}".format(e))
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
