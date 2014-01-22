@@ -62,7 +62,7 @@ def confirmDo(request, base64encoded):
     reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
     if reqTimesLeft is None:
         cache.set("reqTimesLeft_{0}".format(ip), 10, 3600)
-    else reqTimesLeft > 0:
+    elif reqTimesLeft > 0:
         cache.decr("reqTimesLeft_{0}".format(ip))
     else:
         return HttpResponseRedirect("error/{0}".format(50))
