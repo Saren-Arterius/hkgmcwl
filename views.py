@@ -12,29 +12,37 @@ import urllib.request
 import json
 
 def index(request):
-    return render(request, 'index.html', {})
+    if request.GET:
+        try:
+            isValid(request.GET)
+        except Exception as e:
+            return HttpResponseRedirect("../error/{0}".format(e))
+        jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "mc_name": request.GET["mc_name"]})
+        base64encoded = b64encode(jsonString.encode())
+        return HttpResponseRedirect(base64encoded)
+    else:
+        return render(request, 'index.html', {})
     
 def error(request, code):
     errorMsg = "Error code {0}".format(code)
     context = {"error": errorMsg}
     return render(request, 'index.html', context)
     
-def confirmPage(request):
+def confirmPage(request, base64encoded):
+    jsonString = b64decode(base64encoded).decode()
+    data = json.loads(jsonString)
     try:
-        isValid(request.GET)
+        isValid(data)
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
-    jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "mc_name": request.GET["mc_name"]})
-    base64encoded = b64encode(jsonString.encode())
-    context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+    context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
 
-def confirm(request, base64encoded):
+def confirmDo(request, base64encoded):
     ip = getClientIP(request)
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
-    
     try:
         isValid(data)
     except Exception as e:
@@ -51,15 +59,15 @@ def confirm(request, base64encoded):
             pass
 
     if not field:
-        return HttpResponseRedirect("../error/{0}".format(100)) #Down server
+        return HttpResponseRedirect("error/{0}".format(100)) #Down server
     elif field != base64encoded:  
-        return HttpResponseRedirect("../error/{0}".format(101)) #Wrong string
+        return HttpResponseRedirect("error/{0}".format(101)) #Wrong string
         
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
     except:
-        return HttpResponseRedirect("../error/{0}".format(102)) #Failed to communicate with server
+        return HttpResponseRedirect("error/{0}".format(102)) #Failed to communicate with server
     else:
         newUser = Whitelist.objects.create(ip = ip, time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
         newUser.save()
