@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from hkgmcwl.models import *
 from random import choice
 from string import ascii_uppercase, ascii_lowercase, digits
 from re import findall
