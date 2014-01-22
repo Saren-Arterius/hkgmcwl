@@ -66,8 +66,9 @@ def isValid(dict):
         raise Exception("5") #Username 3-20
 
     if findall("^[A-Za-z0-9_]+$", dict["ig_name"]) == 0:
-        raise Exception(dict["ig_name"])
         raise Exception("6") #Regex not match
+        
+    raise Exception(dict["ig_name"])
         
     return True
     
