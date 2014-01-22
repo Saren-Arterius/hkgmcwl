@@ -1,6 +1,6 @@
 from django.core.cache import cache
 from django.shortcuts import render
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponseRedirect
 from hkgmcwl.jsonapi import *
 from hkgmcwl.models import *
 from pyquery import PyQuery as pq
@@ -23,7 +23,7 @@ def confirmPage(request):
     try:
         isValid(request.GET)
     except Exception as e:
-        return HttpResponsePermanentRedirect("../error/{0}".format(e))
+        return HttpResponseRedirect("../error/{0}".format(e))
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "mc_name": request.GET["mc_name"]})
     base64encoded = b64encode(jsonString.encode())
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
@@ -36,7 +36,7 @@ def confirm(request, base64encoded):
     try:
         isValid(data)
     except Exception as e:
-        return HttpResponsePermanentRedirect("../error/{0}".format(e))
+        return HttpResponseRedirect("../error/{0}".format(e))
     for server in range(1,15):
         try:
             url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
@@ -47,18 +47,18 @@ def confirm(request, base64encoded):
         except:
             pass
     if not field:
-        return HttpResponsePermanentRedirect("../error/{0}".format(100)) #Down server
+        return HttpResponseRedirect("../error/{0}".format(100)) #Down server
     if field != base64encoded:  
         raise Exception(field+"11WTF11"+base64encoded)
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
     except:
-        return HttpResponsePermanentRedirect("../error/{0}".format(103)) #Failed to communicate with server
+        return HttpResponseRedirect("../error/{0}".format(103)) #Failed to communicate with server
     else:
         newUser = Whitelist.objects.create(ip = getClientIP(request), time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
         newIP.save()
-        return HttpResponsePermanentRedirect("success")
+        return HttpResponseRedirect("success")
 
 def confirmError(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
