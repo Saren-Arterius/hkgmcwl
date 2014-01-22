@@ -28,7 +28,7 @@ def passwordError(request, code):
 
 def passwordValidatePage(request, hkg_uid):
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
-        return HttpResponseRedirect("error/{0}".format(11))
+        return HttpResponseRedirect("password/error/{0}".format(11))
     cache.add("password_recovery_{0}".format(hkg_uid), genPassword(24))
     validateString = cache.get("password_recovery_{0}".format(hkg_uid))
     context = {"hkg_uid": hkg_uid, "validateString": validateString, "server": randint(1,14), "href": hkg_uid}
