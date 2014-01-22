@@ -16,7 +16,7 @@ def index(request):
         try:
             isValid(request.GET)
         except Exception as e:
-            return HttpResponseRedirect("../error/{0}".format(e))
+            return HttpResponseRedirect("error/{0}".format(e))
         jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "mc_name": request.GET["mc_name"]})
         base64encoded = b64encode(jsonString.encode())
         return HttpResponseRedirect(base64encoded)
