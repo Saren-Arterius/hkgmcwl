@@ -53,8 +53,7 @@ def confirmError(request, base64encoded, code):
 def confirmSuccess(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
-    password = cache.get("password_{0}".format(data["hkg_uid"]))
-    context = {"mc_name": data["mc_name"], "password": password}
+    context = {"mc_name": data["mc_name"], "password": data["password"]}
     return render(request, 'success.html', context)
 
 def confirmDo(request, base64encoded):
@@ -92,8 +91,10 @@ def confirmDo(request, base64encoded):
     else:
         newUser = Whitelist.objects.create(ip = ip, time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"], init_password = password)
         newUser.save()
-        cache.set("password_{0}".format(data["hkg_uid"]), password, 15)
-        return HttpResponseRedirect("success")
+        payload = {"password": password, "mc_name": data["mc_name"]}
+        jsonString = json.dumps(payload)
+        base64encoded = b64encode(jsonString.encode())
+        return HttpResponseRedirect("../success/{0}".format(base64encoded))
 
 def isValid(dict):
     try:
