@@ -1,11 +1,12 @@
 from django.core.cache import cache
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.http import HttpResponsePermanentRedirect
-from base64 import b64encode, b64decode
 from hkgmcwl.jsonapi import *
+from pyquery import PyQuery as pq
+from base64 import b64encode, b64decode
 from random import randint
 from re import findall
+import urllib.request
 import json
 
 def index(request):
@@ -29,8 +30,13 @@ def confirmPage(request):
 def confirm(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
-    raise Exception(data)
-
+    for server in range(1,15):
+        url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
+        request = urllib.request.urlopen(url)
+        page = request.read().decode("big-5")
+        field = pq(page)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
+        break
+    raise Exception(field)
 
 def confirmError(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
