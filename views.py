@@ -78,6 +78,11 @@ def confirmError(request, base64encoded):
     data = json.loads(jsonString)
     raise Exception(data)
 
+def confirmSuccess(request, base64encoded):
+    jsonString = b64decode(base64encoded).decode()
+    data = json.loads(jsonString)
+    raise Exception(data)
+
 def isValid(dict):
     try:
         dict["hkg_uid"]
