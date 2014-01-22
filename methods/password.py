@@ -19,14 +19,11 @@ def password(request):
     else:
         return render(request, 'password.html', {})
 
-def passwordValidatePage(request, base64encoded):
-    jsonString = b64decode(base64encoded).decode()
-    data = json.loads(jsonString)
-    try:
-        isValid(data)
-    except Exception as e:
-        return HttpResponseRedirect("../error/{0}".format(e))
-    context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+def passwordValidatePage(request, hkg_uid):
+    if not Whitelist.objects.filter(hkg_uid = hkg_uid):
+        return HttpResponseRedirect("error/{0}".format(11))
+    valString = genPassword(32)
+    context = {"hkg_uid": hkg_uid, "base64encoded": valString, "server": randint(1,14)}
     return render(request, 'validate.html', context)
 
 def passwordError(request, code):
