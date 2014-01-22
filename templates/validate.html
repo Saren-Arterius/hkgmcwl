@@ -5,10 +5,15 @@
 		<title>Whitelist registration - Validation</title>
         <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="{% static 'hkgmcwl/bootstrap.min.js' %}"></script>
         <script src="{% static 'hkgmcwl/handle.js' %}"></script>
+        <style>
+        #info-img{
+            position:absolute;
+        }
+        </style>
 	</head>
     <body class='ui_basic login-page'>
+        <img id="info-img" src="{% static 'hkgmcwl/profile.png' %}"/>
         {% if error %}
         <div class='flash-container' style="display: block;">
             <div class='flash-alert'>
