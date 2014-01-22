@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     url(r'^error/(?P<code>\d*)$', views.error, name='error'),
     url(r'^success/(?P<base64encoded>.+)$', views.success, name='success'),
     
-    url(r'^password/$', views.password, name='password'),
+    url(r'^password$', views.password, name='password'),
     url(r'^password/error/(?P<code>\d*)$', views.passwordValidateError, name='passwordValidateError'),
     url(r'^password/validate$', views.passwordValidateDo, name='passwordValidateDo'),
     url(r'^password/(?P<hkg_uid>\d+)$', views.passwordValidatePage, name='passwordValidatePage'),
