@@ -5,6 +5,7 @@ from hkgmcwl.jsonapi import *
 from pyquery import PyQuery as pq
 from base64 import b64encode, b64decode
 from random import randint
+from time import time
 from re import findall
 import urllib.request
 import json
@@ -31,6 +32,10 @@ def confirm(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
+    try:
+        isValid(data)
+    except Exception as e:
+        return HttpResponsePermanentRedirect("../error/{0}".format(e))
     for server in range(1,15):
         try:
             url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
@@ -44,6 +49,15 @@ def confirm(request, base64encoded):
         return HttpResponsePermanentRedirect("../error/{0}".format(100)) #Down server
     if field != base64encoded:
         return HttpResponsePermanentRedirect("../error/{0}".format(101)) #Wrong
+    try:
+        conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
+        conn.call("players.name.whitelist", data["mc_name"])
+    except:
+        return HttpResponsePermanentRedirect("../error/{0}".format(103)) #Failed to communicate with server
+    else:
+        newUser = Whitelist.objects.create(ip = getClientIP(request), time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
+        newIP.save()
+        return HttpResponsePermanentRedirect("success")
 
 def confirmError(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
@@ -75,8 +89,19 @@ def isValid(dict):
     if len(findall("^[A-Za-z0-9_]+$", dict["mc_name"])) == 0:
         raise Exception("6") #Regex not match
         
-    if Whitelist.objects.filter(ip=ip):
-        return render(request, 'analytic/index.html', {})
+    if Whitelist.objects.filter(hkg_uid=hkg_uid):
+        raise Exception("7") #hkg_uid exists
         
+    if Whitelist.objects.filter(mc_name=mc_name):
+        raise Exception("8") #mc_name exists
+
     return True
+    
+def getClientIP(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
     
