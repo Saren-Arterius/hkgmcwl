@@ -52,13 +52,13 @@ def passwordValidateDo(request, hkg_uid):
     ip = getClientIP(request)
     reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
     if reqTimesLeft is None:
-        cache.add("reqTimesLeft_{0}".format(ip), 10, 1800)
+        cache.add("reqTimesLeft_{0}".format(ip), 5, 900)
     elif reqTimesLeft > 0:
         cache.decr("reqTimesLeft_{0}".format(ip))
     else:
         return HttpResponseRedirect("error/{0}".format(50))
 
-    for server in range(1,15):
+    for server in [randint(1,9) for i in range(3)]:
         try:
             url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
             request = urllib.request.urlopen(url)
