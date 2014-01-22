@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Whitelist registration - Success</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
+	</head>
+    <body class='ui_basic login-page'>
+        <div class='container'>
+            <div class='content'>
+                <center>
+                    <h1>Success</h1>
+                    <p class='light'>You can go into Minecraft server from now. Remember: 1 account per HKGolden member.</p>
+                    <p class='light'>Your initial password is stored in plain text. Thus, please change your password in game using "/changepassword [password]"</p>
+                    <p class='light'>If you are existing player, simply use existing password to login.</p>
+                </center>
+            </div>
+        </div>
+        <hr>
+        <div class='container'>
+            <div class='content'>
+                <div class='login-box'>
+                    <h3 class='page-title'>Register</h3>
+                        <div style="margin:0;padding:0;display:inline"></div>
+                        <input autofocus="autofocus" class="text top" id="user_login" placeholder="In-game name" type="text" value="{{ mc_name }}"/>
+                        <input class="text bottom" id="user_password" placeholder="Initial Password" type="text" value="{{ password }}"/>
+                    <hr>
+                    <p class='light' style="line-height:75%">Server address: www.wtako.coms.hk:44444</p>
+                    <p class='light' style="line-height:75%">Server map: <a href="http://www.wtako.coms.hk:44445">www.wtako.coms.hk:44445</a></p>
+                    <p class='light' style="line-height:75%">Powered by: <a href="//forum.wtako.coms.hk">WTAKO SERVER</a></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
