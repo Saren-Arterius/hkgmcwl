@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.http import StreamingHttpResponse, HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect
 from base64 import b64encode, b64decode
 from hkgmcwl.jsonapi import *
 from random import randint
@@ -19,7 +19,7 @@ def confirmPage(request):
     try:
         int(request.GET["hkg_uid"])
     except:
-        return HttpResponsePermanentRedirect(resolve(request.path).app_name+"/error/1")
+        return HttpResponsePermanentRedirect({% url 'error' 1 %}")
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
     base64encoded = b64encode(jsonString.encode())
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
