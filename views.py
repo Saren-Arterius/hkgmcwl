@@ -30,7 +30,7 @@ def confirmPage(request):
     return render(request, 'confirm.html', context)
 
 def confirm(request, base64encoded):
-    raise Exception(request)
+    raise Exception(request.META)
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
