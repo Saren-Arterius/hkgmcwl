@@ -7,5 +7,5 @@ urlpatterns = patterns('',
     url(r'^error/(?P<code>\d*)$', views.error, name='error'),
     url(r'^confirm/$', views.confirmPage, name='confirmPage'),
     url(r'^confirm/error/(?P<code>\d*)$', views.confirmError, name='confirmError'),
-    url(r'^confirm/(?P<base64encoded>.d*)$', views.confirm, name='confirm'),
+    url(r'^confirm/(?P<base64encoded>.+)$', views.confirm, name='confirm'),
 )
