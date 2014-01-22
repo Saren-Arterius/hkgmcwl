@@ -30,7 +30,7 @@
                         <input autofocus="autofocus" class="text" id="user_login" placeholder="Code" type="text" readonly="readonly" value="{{ base64encoded }}"/>
                         <div>
                             {% if error %}
-                            <a href="../{{ base64encoded }}/confirm" class="btn-create btn" style="margin-top:15px"/>Confirm</a>
+                            <a href="../confirm" class="btn-create btn" style="margin-top:15px"/>Confirm</a>
                             {% else %}
                             <a href="{{ base64encoded }}/confirm" class="btn-create btn" style="margin-top:15px"/>Confirm</a>
                             {% endif %}
