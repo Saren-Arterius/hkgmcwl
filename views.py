@@ -30,7 +30,7 @@ def confirmPage(request):
     return render(request, 'confirm.html', context)
 
 def confirm(request, base64encoded):
-    raise Exception(request.META)
+    raise Exception(request.META["REMOTE_ADDR"])
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
