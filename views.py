@@ -89,7 +89,7 @@ def confirmDo(request, base64encoded):
     if not field:
         return HttpResponseRedirect("error/{0}".format(100)) #Down server
     elif field != base64encoded:  
-        return HttpResponseRedirect("error/{0}".format(reqTimesLeft)) #Wrong string
+        return HttpResponseRedirect("error/{0}".format(cache.get("reqTimesLeft_{0}".format(ip)))) #Wrong string
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
