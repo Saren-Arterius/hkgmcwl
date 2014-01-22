@@ -48,7 +48,8 @@ def confirm(request, base64encoded):
             pass
     if not field:
         return HttpResponsePermanentRedirect("../error/{0}".format(100)) #Down server
-    if field != base64encoded:
+    if field != base64encoded:  
+        raise Exception("{0} - {1}".format(field, base64encoded))
         return HttpResponsePermanentRedirect("../error/{0}".format(101)) #Wrong
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
