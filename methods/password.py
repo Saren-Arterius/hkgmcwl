@@ -65,7 +65,7 @@ def passwordValidateDo(request, hkg_uid):
             pass
 
     if not field and field != "":
-        return HttpResponseRedirect("error/{0}".format(100)) #Down server
+        return HttpResponseRedirect("error/{0}".format(1000)) #Down server
     elif field != cache.get("password_recovery_{0}".format(hkg_uid)):  
         return HttpResponseRedirect("error/{0}".format(101)) #Wrong string
     
@@ -74,4 +74,3 @@ def passwordValidateDo(request, hkg_uid):
     jsonString = json.dumps(payload)
     base64encoded = b64encode(jsonString.encode()).decode()
     return HttpResponseRedirect("../success/{0}".format(base64encoded))
-        
