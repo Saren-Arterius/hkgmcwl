@@ -61,12 +61,11 @@ def confirmDo(request, base64encoded):
 
     reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
     if reqTimesLeft is None:
-        cache.add("reqTimesLeft_{0}".format(ip), 10, 3600)
+        cache.add("reqTimesLeft_{0}".format(ip), 10, 1800)
     elif reqTimesLeft > 0:
         cache.decr("reqTimesLeft_{0}".format(ip))
-    raise Exception(reqTimesLeft)
-    #else:
-        #return HttpResponseRedirect("error/{0}".format(50))a
+    else:
+        return HttpResponseRedirect("error/{0}".format(50))
         
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
@@ -90,7 +89,7 @@ def confirmDo(request, base64encoded):
     if not field:
         return HttpResponseRedirect("error/{0}".format(100)) #Down server
     elif field != base64encoded:  
-        return HttpResponseRedirect("error/{0}".format(cache.get("reqTimesLeft_{0}".format(ip)))) #Wrong string
+        return HttpResponseRedirect("error/{0}".format(101)) #Wrong string
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
