@@ -70,8 +70,7 @@ def passwordValidateDo(request, hkg_uid):
         return HttpResponseRedirect("error/{0}".format(101)) #Wrong string
     
     data = Whitelist.objects.filter(hkg_uid = hkg_uid)
-    raise Exception(data)
-    payload = {"password": data["init_password"], "mc_name": data["mc_name"]}
+    payload = {"password": data.init_password, "mc_name": data.mc_name}
     jsonString = json.dumps(payload)
     base64encoded = b64encode(jsonString.encode()).decode()
     return HttpResponseRedirect("../success/{0}".format(base64encoded))
