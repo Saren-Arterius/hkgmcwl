@@ -2,7 +2,7 @@ from django.core.cache import cache
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from hkgmcwl.models import *
-from hkgmcwl.views_errormsgs import *
+from hkgmcwl.views.errormsgs import *
 from pyquery import PyQuery as pq
 from random import randint
 from re import findall
