@@ -56,7 +56,7 @@ def passwordValidateDo(request, hkg_uid):
 
     for server in range(1,15):
         try:
-            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
+            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
             request = urllib.request.urlopen(url)
             page = request.read().decode("big5", "replace")
             field = pq(page)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
