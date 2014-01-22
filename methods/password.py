@@ -15,7 +15,7 @@ import urllib.request
 def password(request):
     if request.GET:
         if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
-            return HttpResponseRedirect("password/error/{0}".format(11))
+            return HttpResponseRedirect("error/{0}".format(11))
         else:
             return HttpResponseRedirect("{0}".format(request.GET["hkg_uid"]))
     else:
