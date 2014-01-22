@@ -81,7 +81,7 @@ def validateDo(request, base64encoded):
         except:
             pass
 
-    if not field:
+    if not field and field != "":
         return HttpResponseRedirect("error/{0}".format(100)) #Down server
     elif field != base64encoded:  
         return HttpResponseRedirect("error/{0}".format(101)) #Wrong string

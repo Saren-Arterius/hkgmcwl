@@ -41,4 +41,37 @@ def passwordValidateError(request, code, hkg_uid):
     return render(request, 'validate.html', context)
     
 def passwordValidateDo(request, hkg_uid):
-    return HttpResponseRedirect("./error/{0}".format(100))
+    if not Whitelist.objects.filter(hkg_uid = hkg_uid):
+        return HttpResponseRedirect("error/{0}".format(11))
+
+    field = False
+    ip = getClientIP(request)
+    reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
+    if reqTimesLeft is None:
+        cache.add("reqTimesLeft_{0}".format(ip), 10, 1800)
+    elif reqTimesLeft > 0:
+        cache.decr("reqTimesLeft_{0}".format(ip))
+    else:
+        return HttpResponseRedirect("error/{0}".format(50))
+
+    for server in range(1,15):
+        try:
+            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
+            request = urllib.request.urlopen(url)
+            page = request.read().decode("big5", "replace")
+            field = pq(page)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
+            break
+        except:
+            pass
+
+    if not field and field != "":
+        return HttpResponseRedirect("error/{0}".format(100)) #Down server
+    elif field != cache.get("password_recovery_{0}".format(hkg_uid)):  
+        return HttpResponseRedirect("error/{0}".format(101)) #Wrong string
+    
+    data = Whitelist.objects.filter(hkg_uid = hkg_uid)
+    payload = {"password": data["init_password"], "mc_name": data["mc_name"]}
+    jsonString = json.dumps(payload)
+    base64encoded = b64encode(jsonString.encode()).decode()
+    return HttpResponseRedirect("../success/{0}".format(base64encoded))
+        
