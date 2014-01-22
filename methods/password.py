@@ -75,4 +75,4 @@ def passwordValidateDo(request, hkg_uid):
         payload = {"password": i.init_password, "mc_name": i.mc_name}
     jsonString = json.dumps(payload)
     base64encoded = b64encode(jsonString.encode()).decode()
-    return HttpResponseRedirect("../success/{0}".format(base64encoded))
+    return HttpResponseRedirect("../../success/{0}".format(base64encoded))
