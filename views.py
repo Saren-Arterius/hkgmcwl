@@ -8,7 +8,8 @@ def index(request):
     return render(request, 'index.html', {})
     
 def error(request, code):
-    context = {"error": "test"}
+    errorMsg = "Error code {0}".format(code)
+    context = {"error": errorMsg}
     return render(request, 'index.html', context)
     
 def newuser(request):
