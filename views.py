@@ -26,7 +26,7 @@ def confirmPage(request):
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
 
-def confirm(request, base64encoded)):
+def confirm(request, base64encoded):
     jsonString = b64decode(base64encoded.decode())
     data = json.loads(jsonString)
     raise Exception(data)
