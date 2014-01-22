@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.http import StreamingHttpResponse, HttpRequest
+from django.http import StreamingHttpResponse
 from base64 import b64encode, b64decode
 from hkgmcwl.jsonapi import *
 from random import randint
@@ -16,19 +16,19 @@ def error(request, code):
     return render(request, 'index.html', context)
     
 def confirmPage(request):
-    jsonString = json.dumps({"hkg_uid": HttpRequest.GET["hkg_uid"], "ig_name": HttpRequest.GET["ig_name"]})
+    jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
     base64encoded = base64.b64encode(jsonString)
-    context = {"hkg_uid": HttpRequest.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+    context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
     
 def confirmError(request):
-    jsonString = json.dumps({"hkg_uid": HttpRequest.GET["hkg_uid"], "ig_name": HttpRequest.GET["ig_name"]})
+    jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
     base64encoded = base64.b64encode(jsonString)
-    context = {"hkg_uid": HttpRequest.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+    context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
     
 def confirm(request):
-    jsonString = json.dumps({"hkg_uid": HttpRequest.GET["hkg_uid"], "ig_name": HttpRequest.GET["ig_name"]})
+    jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
     base64encoded = base64.b64encode(jsonString)
-    context = {"hkg_uid": HttpRequest.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+    context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
