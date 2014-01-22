@@ -30,6 +30,7 @@ def confirmPage(request):
     return render(request, 'confirm.html', context)
 
 def confirm(request, base64encoded):
+    raise Exception(request)
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
@@ -56,7 +57,7 @@ def confirm(request, base64encoded):
     except:
         return HttpResponseRedirect("../error/{0}".format(102)) #Failed to communicate with server
     else:
-        newUser = Whitelist.objects.create(ip = request.META.get('REMOTE_ADDR'), time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
+        newUser = Whitelist.objects.create(ip = getClientIP(request), time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
         newIP.save()
         return HttpResponseRedirect("success")
 
@@ -97,3 +98,12 @@ def isValid(dict):
         raise Exception("8") #mc_name exists
 
     return True
+    
+def getClientIP(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+    
