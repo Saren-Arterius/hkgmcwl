@@ -20,7 +20,7 @@
             <div class='content'>
                 <center>
                     <h1>Confirmation</h1>
-                    <p class='light'>Please paste the following code into "個人網頁" on your HKGolden profile page.</p>    
+                    <p class='light'>Please paste the following code into <a href="http://forum{{ server }}.hkgolden.com/ProfilePage.aspx?userid={{ hkg_uid }}">個人網頁</a> on your HKGolden profile page.</p>    
                 </center>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <div class='login-box'>
                     <h3 class='page-title'>Confirm</h3>
                         <div style="margin:0;padding:0;display:inline"></div>
-                        <input autofocus="autofocus" class="text" id="user_login" placeholder="Code" type="text" readonly="readonly"/>
+                        <input autofocus="autofocus" class="text" id="user_login" placeholder="Code" type="text" readonly="readonly" value="{{ base64encoded }}"/>
                         <div>
                             <a href="test" class="btn-create btn" style="margin-top:15px"/>Confirm</a>
                         </div>
