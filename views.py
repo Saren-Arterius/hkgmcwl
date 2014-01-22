@@ -7,6 +7,10 @@ from hkgmcwl.jsonapi import *
 def index(request):
     return render(request, 'index.html', {})
     
+def error(request, code):
+    context = {"error": "test"}
+    return render(request, 'index.html', context)
+    
 def newuser(request):
     conn = MinecraftJsonApi(host = '192.168.0.1', port = 44446, username = 'admin', password = 'password')
     a = conn.call("players.name.whitelist", "saren")
