@@ -1,3 +1,3 @@
-from hkgmcwl.views.general import *
-from hkgmcwl.views.whitelist import *
-from hkgmcwl.views.password import *
+from hkgmcwl.view.general import *
+from hkgmcwl.view.whitelist import *
+from hkgmcwl.view.password import *
