@@ -18,10 +18,10 @@ def error(request, code):
     return render(request, 'index.html', context)
     
 def confirmPage(request):
-    #try:
-    isValid(request.GET)
-    #except Exception as e:
-        #return HttpResponsePermanentRedirect("../error/{0}".format(e))
+    try:
+        isValid(request.GET)
+    except Exception as e:
+        return HttpResponsePermanentRedirect("../error/{0}".format(e))
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
     base64encoded = b64encode(jsonString.encode())
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
@@ -65,10 +65,8 @@ def isValid(dict):
     if len(dict["ig_name"]) not in range(3,21):
         raise Exception("5") #Username 3-20
 
-    if findall("^[A-Za-z0-9_]+$", dict["ig_name"]) == 0:
+    if findall("^[a]+$", dict["ig_name"]) == 0:
         raise Exception("6") #Regex not match
-        
-    raise Exception(dict["ig_name"])
         
     return True
     
