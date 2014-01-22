@@ -8,7 +8,6 @@ from pyquery import PyQuery as pq
 from random import randint
 from re import findall
 import urllib.request
-import json
 
 def password(request):
     if request.GET:
@@ -42,4 +41,4 @@ def passwordValidateError(request, code, hkg_uid):
     return render(request, 'password.html', context)
     
 def passwordValidateDo(request, hkg_uid):
-    return HttpResponseRedirect("error/{0}".format(100))
+    return HttpResponseRedirect("../error/{0}".format(100))
