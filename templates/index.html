@@ -4,9 +4,6 @@
 	<head>
 		<title>Whitelist registration</title>
         <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script type="text/javascript" src="{% static 'hkgmcwl/base64.js' %}"></script>
-        <script type="text/javascript" src="{% static 'hkgmcwl/handle.js' %}"></script>
 	</head>
     <body class='ui_basic login-page'>
         {% if error %}
@@ -29,7 +26,7 @@
             <div class='content'>
                 <div class='login-box'>
                     <h3 class='page-title'>Register</h3>
-                    <form accept-charset="UTF-8" action="newuser" class="new_user" id="new_user" method="get">
+                    <form accept-charset="UTF-8" action="confirm" class="new_user" id="new_user" method="get">
                         <div style="margin:0;padding:0;display:inline"></div>
                         <input autofocus="autofocus" class="text top" id="user_login" name="hkg_uid" placeholder="HKGolden User ID" type="text" />
                         <input class="text bottom" id="user_password" name="ig_name" placeholder="In-game name" type="text" />
