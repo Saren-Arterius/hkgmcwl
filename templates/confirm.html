@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Whitelist registration - Confirmation</title>
+		<title>Whitelist registration - Validateation</title>
         <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
 	</head>
     <body class='ui_basic login-page'>
@@ -16,7 +16,7 @@
         <div class='container'>
             <div class='content'>
                 <center>
-                    <h1>Confirmation</h1>
+                    <h1>Validateation</h1>
                     <p class='light'>Please paste the following code into <a href="http://forum{{ server }}.hkgolden.com/ProfilePage.aspx?userid={{ hkg_uid }}">個人網頁</a> on your HKGolden profile page.</p>    
                 </center>
             </div>
@@ -25,14 +25,14 @@
         <div class='container'>
             <div class='content'>
                 <div class='login-box'>
-                    <h3 class='page-title'>Confirm</h3>
+                    <h3 class='page-title'>Validate</h3>
                         <div style="margin:0;padding:0;display:inline"></div>
                         <input autofocus="autofocus" class="text" id="user_login" placeholder="Code" type="text" readonly="readonly" value="{{ base64encoded }}"/>
                         <div>
                             {% if error %}
-                            <a href="../confirm" class="btn-create btn" style="margin-top:15px"/>Confirm</a>
+                            <a href="../validate" class="btn-create btn" style="margin-top:15px"/>Validate</a>
                             {% else %}
-                            <a href="{{ base64encoded }}/confirm" class="btn-create btn" style="margin-top:15px"/>Confirm</a>
+                            <a href="{{ base64encoded }}/validate" class="btn-create btn" style="margin-top:15px"/>Validate</a>
                             {% endif %}
                         </div>
                     <hr>
