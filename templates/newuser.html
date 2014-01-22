@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Whitelist registration</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'hkgmcwl/base64.js' %}"></script>
+        <script type="text/javascript" src="{% static 'hkgmcwl/handle.js' %}"></script>
+	</head>
+    <body class='ui_basic login-page'>
+        {% if error %}
+        <div class='flash-container' style="display: block;">
+            <div class='flash-alert'>
+                {{ error }}
+            </div>
+        </div>
+        {% endif %}
+        <div class='container'>
+            <div class='content'>
+                <center>
+                    <h1>Confirmation</h1>
+                    <p class='light'>Please paste the following code into "個人網頁" on your HKGolden profile page.</p>    
+                </center>
+            </div>
+        </div>
+        <hr>
+        <div class='container'>
+            <div class='content'>
+                <div class='login-box'>
+                    <h3 class='page-title'>Confirm</h3>
+                        <div style="margin:0;padding:0;display:inline"></div>
+                        <input autofocus="autofocus" class="text top" id="user_login" placeholder="Code" type="text" readonly="readonly"/>
+                        <div>
+                            <a href="test" class="btn-create btn"/>Confirm</a>
+                        </div>
+                    <hr>
+                    <p class='light' style="line-height:75%">Server address: www.wtako.coms.hk:44444</p>
+                    <p class='light' style="line-height:75%">Server map: <a href="http://www.wtako.coms.hk:44445">www.wtako.coms.hk:44445</a></p>
+                    <p class='light' style="line-height:75%">Powered by: <a href="//forum.wtako.coms.hk">WTAKO SERVER</a></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
