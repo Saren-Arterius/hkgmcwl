@@ -19,17 +19,17 @@ def password(request):
     else:
         return render(request, 'password.html', {})
 
+def passwordError(request, code):
+    errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
+    context = {"error": errorMsg}
+    return render(request, 'password.html', context)
+    
 def passwordValidatePage(request, hkg_uid):
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
         return HttpResponseRedirect("error/{0}".format(11))
     valString = genPassword(32)
     context = {"hkg_uid": hkg_uid, "base64encoded": valString, "server": randint(1,14)}
     return render(request, 'validate.html', context)
-
-def passwordError(request, code):
-    errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
-    context = {"error": errorMsg}
-    return render(request, 'password.html', context)
 
 def passwordValidateError(request, code):
     errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
