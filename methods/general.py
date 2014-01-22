@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from hkgmcwl.models import *
-from random import choice
 from string import ascii_uppercase, ascii_lowercase, digits
+from base64 import b64encode, b64decode
+from random import choice
 from re import findall
 import json
 
