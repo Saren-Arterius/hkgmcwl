@@ -39,13 +39,14 @@ def confirmPage(request, base64encoded):
     return render(request, 'confirm.html', context)
 
 def confirmError(request, base64encoded, code):
+    errorMsg = "Error code {0}".format(code)
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     try:
         isValid(data)
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
-    context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14), "error": code}
+    context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14), "error": errorMsg}
     return render(request, 'confirm.html', context)
 
 def confirmSuccess(request, base64encoded):
