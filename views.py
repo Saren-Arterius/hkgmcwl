@@ -5,6 +5,7 @@ from django.http import HttpResponsePermanentRedirect
 from base64 import b64encode, b64decode
 from hkgmcwl.jsonapi import *
 from random import randint
+from re import findall
 import json
 
 def index(request):
@@ -17,9 +18,9 @@ def error(request, code):
     
 def confirmPage(request):
     try:
-        int(request.GET["hkg_uid"])
-    except:
-        return HttpResponsePermanentRedirect("../error/1")
+        isValid(dict)
+    except Exception as e:
+        return HttpResponsePermanentRedirect("../error/{0}".format(e))
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
     base64encoded = b64encode(jsonString.encode())
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
@@ -36,3 +37,31 @@ def confirm(request):
     base64encoded = b64encode(jsonString.encode())
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
+    
+def isValid(dict):
+    try:
+        dict["hkg_uid"]
+    except:
+        raise Exception("3") #Not exist
+        
+    try:
+        int(dict["hkg_uid"])
+    except:
+        raise Exception("1") #Not correct
+        
+    if len(str(dict["hkg_uid"])) > 6:
+        raise Exception("2") #Too long
+        
+    try:
+        dict["ig_name"]
+    except:
+        raise Exception("3") #Not exist
+        
+    if len(dict["ig_name"]) > 20 or len(dict["ig_name"]) == 0:
+        raise Exception("4") #Username 1-20
+
+    if findall("^[A-Za-z0-9_]+$", dict["ig_name"]) == 0:
+        raise Exception("5") #Regex not match
+        
+    return True
+    
