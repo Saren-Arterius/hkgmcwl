@@ -36,14 +36,18 @@
                         <input class="text bottom" id="user_password" name="mc_name" placeholder="In-game name" type="text" />
                         <div>
                             <input class="btn-create btn" name="commit" type="submit" value="Register" />
+                            <div class="pull-right">
+                                {% if error %}
+                                <a class="btn" href="../password">
+                                {% else %}
+                                <a class="btn" href="password">
+                                {% endif %}
+                                    Missing your initial password?
+                                </a>
+                            </div>
                         </div>
                     </form>
                     <hr>
-                    {% if error %}
-                    <p class='light' style="line-height:75%">Missing your initial password? <a href="../password">Click here.</a></p>
-                    {% else %}
-                    <p class='light' style="line-height:75%">Missing your initial password? <a href="password">Click here.</a></p>
-                    {% endif %}
                     <p class='light' style="line-height:75%">Server address: www.wtako.coms.hk:44444</p>
                     <p class='light' style="line-height:75%">Server map: <a href="http://www.wtako.coms.hk:44445">www.wtako.coms.hk:44445</a></p>
                     <p class='light' style="line-height:75%">Powered by: <a href="//forum.wtako.coms.hk">WTAKO SERVER</a></p>
