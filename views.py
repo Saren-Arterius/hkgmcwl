@@ -38,6 +38,21 @@ def confirmPage(request, base64encoded):
     context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
 
+def confirmError(request, base64encoded, code):
+    jsonString = b64decode(base64encoded).decode()
+    data = json.loads(jsonString)
+    try:
+        isValid(data)
+    except Exception as e:
+        return HttpResponseRedirect("../error/{0}".format(e))
+    context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14), "error": code}
+    return render(request, 'confirm.html', context)
+
+def confirmSuccess(request, base64encoded):
+    jsonString = b64decode(base64encoded).decode()
+    data = json.loads(jsonString)
+    raise Exception(data)
+
 def confirmDo(request, base64encoded):
     ip = getClientIP(request)
     jsonString = b64decode(base64encoded).decode()
@@ -72,16 +87,6 @@ def confirmDo(request, base64encoded):
         newUser = Whitelist.objects.create(ip = ip, time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
         newUser.save()
         return HttpResponseRedirect("success")
-
-def confirmError(request, base64encoded):
-    jsonString = b64decode(base64encoded).decode()
-    data = json.loads(jsonString)
-    raise Exception(data)
-
-def confirmSuccess(request, base64encoded):
-    jsonString = b64decode(base64encoded).decode()
-    data = json.loads(jsonString)
-    raise Exception(data)
 
 def isValid(dict):
     try:
