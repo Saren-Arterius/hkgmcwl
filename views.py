@@ -17,18 +17,18 @@ def error(request, code):
     
 def confirmPage(request):
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
-    base64encoded = base64.b64encode(jsonString)
+    base64encoded = b64encode(jsonString)
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
     
 def confirmError(request):
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
-    base64encoded = base64.b64encode(jsonString)
+    base64encoded = b64encode(jsonString)
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
     
 def confirm(request):
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
-    base64encoded = base64.b64encode(jsonString)
+    base64encoded = b64encode(jsonString)
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'confirm.html', context)
