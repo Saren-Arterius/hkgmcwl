@@ -12,7 +12,7 @@ from re import findall
 import urllib.request
 import json
 
-errorMsg = {
+errorMsgs = {
     "1": "HKGolden user ID does not exist in request",
     "2": "In-game name does not exist in request",
     "3": "HKGolden user ID must be digits",
@@ -40,7 +40,7 @@ def index(request):
         return render(request, 'index.html', {})
     
 def error(request, code):
-    errorMsg = "Error code {0}: {1}".format(code, errorMsg[code])
+    errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     context = {"error": errorMsg}
     return render(request, 'index.html', context)
     
@@ -55,7 +55,7 @@ def validatePage(request, base64encoded):
     return render(request, 'validate.html', context)
 
 def validateError(request, base64encoded, code):
-    errorMsg = "Error code {0}: {1}".format(code, errorMsg[code])
+    errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     try:
