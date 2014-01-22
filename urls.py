@@ -18,4 +18,4 @@ urlpatterns = patterns('',
     url(r'^(?P<base64encoded>.+)$', views.validatePage, name='validatePage'),
 )
 
-handler500 = views.errorHandler
+handler500 = "views.errorHandler"
