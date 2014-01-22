@@ -34,10 +34,12 @@ def confirm(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
+    
     try:
         isValid(data)
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
+        
     for server in range(1,15):
         try:
             url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
@@ -47,10 +49,12 @@ def confirm(request, base64encoded):
             break
         except:
             pass
+
     if not field:
         return HttpResponseRedirect("../error/{0}".format(100)) #Down server
-    if field != base64encoded:  
+    elif field != base64encoded:  
         return HttpResponseRedirect("../error/{0}".format(101)) #Wrong string
+        
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
@@ -58,7 +62,7 @@ def confirm(request, base64encoded):
         return HttpResponseRedirect("../error/{0}".format(102)) #Failed to communicate with server
     else:
         newUser = Whitelist.objects.create(ip = ip, time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
-        newIP.save()
+        newUser.save()
         return HttpResponseRedirect("success")
 
 def confirmError(request, base64encoded):
@@ -84,20 +88,16 @@ def isValid(dict):
         
     if len(str(dict["hkg_uid"])) > 6:
         raise Exception("4") #Too long
-        
-    if len(dict["mc_name"]) not in range(3,21):
+    elif len(dict["mc_name"]) not in range(3,21):
         raise Exception("5") #Username 3-20
-
-    if len(findall("^[A-Za-z0-9_]+$", dict["mc_name"])) == 0:
+    elif len(findall("^[A-Za-z0-9_]+$", dict["mc_name"])) == 0:
         raise Exception("6") #Regex not match
-        
-    if Whitelist.objects.filter(hkg_uid = dict["hkg_uid"]):
+    elif Whitelist.objects.filter(hkg_uid = dict["hkg_uid"]):
         raise Exception("7") #hkg_uid exists
-        
-    if Whitelist.objects.filter(mc_name = dict["mc_name"]):
+    elif Whitelist.objects.filter(mc_name = dict["mc_name"]):
         raise Exception("8") #mc_name exists
-
-    return True
+    else:
+        return True
     
 def getClientIP(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
