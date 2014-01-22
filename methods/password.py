@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from hkgmcwl.models import *
 from hkgmcwl.methods.errormsgs import *
 from hkgmcwl.methods.general import *
+from base64 import b64encode, b64decode
 from pyquery import PyQuery as pq
 from random import randint
 from re import findall
