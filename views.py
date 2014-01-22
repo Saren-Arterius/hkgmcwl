@@ -1,6 +1,7 @@
 from hkgmcwl.methods.whitelist import *
 from hkgmcwl.methods.password import *
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from os.path import dirname
 
 def errorHandler(request):
-    return HttpResponse(request.META['REQUEST_URI'])
+    return HttpResponseRedirect(dirname(request.META['REQUEST_URI']))
