@@ -41,4 +41,4 @@ def passwordValidateError(request, code, hkg_uid):
     return render(request, 'password.html', context)
     
 def passwordValidateDo(request, hkg_uid):
-    return HttpResponseRedirect("../error/{0}".format(100))
+    return HttpResponseRedirect("./error/{0}".format(100))
