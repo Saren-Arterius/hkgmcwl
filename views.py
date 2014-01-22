@@ -57,7 +57,7 @@ def isValid(dict):
     if len(str(dict["hkg_uid"])) > 6:
         raise Exception("4") #Too long
         
-    if len(dict["ig_name"]) > 20 or len(dict["ig_name"]) == 0:
+    if len(dict["ig_name"]) not in range(1,21):
         raise Exception("5") #Username 1-20
 
     if findall("^[A-Za-z0-9_]+$", dict["ig_name"]) == 0:
