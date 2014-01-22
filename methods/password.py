@@ -38,7 +38,7 @@ def passwordValidateError(request, code, hkg_uid):
     cache.add("password_recovery_{0}".format(hkg_uid), genPassword(32))
     validateString = cache.get("password_recovery_{0}".format(hkg_uid))
     context = {"hkg_uid": hkg_uid, "validateString": validateString, "server": randint(1,14), "href": hkg_uid, "error": errorMsg}
-    return render(request, 'password.html', context)
+    return render(request, 'validate.html', context)
     
 def passwordValidateDo(request, hkg_uid):
     return HttpResponseRedirect("./error/{0}".format(100))
