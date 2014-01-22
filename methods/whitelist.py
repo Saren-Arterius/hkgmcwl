@@ -37,7 +37,7 @@ def validatePage(request, base64encoded):
         isValid(data)
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
-    context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
+    context = {"hkg_uid": data["hkg_uid"], "validateString": base64encoded, "server": randint(1,14), "href": base64encoded}
     return render(request, 'validate.html', context)
 
 def validateError(request, base64encoded, code):
@@ -48,7 +48,7 @@ def validateError(request, base64encoded, code):
         isValid(data)
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
-    context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14), "error": errorMsg}
+    context = {"hkg_uid": data["hkg_uid"], "validateString": base64encoded, "server": randint(1,14), "error": errorMsg, "href": base64encoded}
     return render(request, 'validate.html', context)
 
 def validateDo(request, base64encoded):
