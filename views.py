@@ -19,7 +19,7 @@ def confirmPage(request):
     try:
         int(request.GET["hkg_uid"])
     except:
-        return HttpResponsePermanentRedirect({% url 'error' 1 %}")
+        return HttpResponsePermanentRedirect("../error/1")
     jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "ig_name": request.GET["ig_name"]})
     base64encoded = b64encode(jsonString.encode())
     context = {"hkg_uid": request.GET["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
