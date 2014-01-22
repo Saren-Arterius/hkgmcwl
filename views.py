@@ -3,4 +3,4 @@ from hkgmcwl.methods.password import *
 from django.http import HttpResponse
 
 def errorHandler(request):
-    return HttpResponse("test")
+    return HttpResponse(request.META['REQUEST_URI'])
