@@ -1,3 +1,4 @@
+from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -10,6 +11,7 @@ from random import randint
 from re import findall
 import urllib.request
 
+@cache_page(60 * 15)
 def password(request):
     if request.GET:
         if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
