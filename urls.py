@@ -17,5 +17,3 @@ urlpatterns = patterns('',
     url(r'^(?P<base64encoded>.+)/validate$', views.validateDo, name='validateDo'),
     url(r'^(?P<base64encoded>.+)$', views.validatePage, name='validatePage'),
 )
-
-handler500 = "views.errorHandler"
