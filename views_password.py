@@ -20,7 +20,7 @@ def password(request):
     else:
         return render(request, 'password.html', {})
 
-def validatePage(request, base64encoded):
+def passwordValidatePage(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     try:
@@ -30,7 +30,10 @@ def validatePage(request, base64encoded):
     context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'validate.html', context)
 
-def passwordError(request, code):
+def passwordValidateError(request, code):
     errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     context = {"error": errorMsg}
     return render(request, 'password.html', context)
+    
+def passwordValidateDo(request, code):
+    pass
