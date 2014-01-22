@@ -18,7 +18,7 @@ def password(request):
             if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
                 return HttpResponseRedirect("error/{0}".format(11))
             else:
-                return HttpResponseRedirect("{0}".format(request.GET["hkg_uid"]))
+                return HttpResponseRedirect("password/{0}".format(request.GET["hkg_uid"]))
         except:
             return HttpResponseRedirect("error/{0}".format(11))
     else:
