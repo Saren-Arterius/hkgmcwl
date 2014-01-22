@@ -4,7 +4,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from hkgmcwl.jsonapi import *
 from hkgmcwl.models import *
-from hkgmcwl.methods.errormsgs import *
 from hkgmcwl.methods.general import *
 from pyquery import PyQuery as pq
 from base64 import b64encode, b64decode
@@ -29,8 +28,7 @@ def index(request):
 
 @cache_page(60 * 15)
 def error(request, code):
-    errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
-    context = {"error": errorMsg}
+    context = {"error": getErrorMessage(code)}
     return render(request, 'index.html', context)
 
 @cache_page(60 * 15)
@@ -46,14 +44,13 @@ def validatePage(request, base64encoded):
 
 @cache_page(60 * 15)
 def validateError(request, base64encoded, code):
-    errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     try:
         isValid(data)
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
-    context = {"hkg_uid": data["hkg_uid"], "validateString": base64encoded, "server": randint(1,14), "error": errorMsg, "href": base64encoded}
+    context = {"hkg_uid": data["hkg_uid"], "validateString": base64encoded, "server": randint(1,14), "error": getErrorMessage(code), "href": base64encoded}
     return render(request, 'validate.html', context)
 
 def validateDo(request, base64encoded):

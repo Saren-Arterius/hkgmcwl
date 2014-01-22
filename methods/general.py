@@ -1,5 +1,6 @@
 from django.views.decorators.cache import cache_page
 from django.shortcuts import render
+from hkgmcwl.methods.errormsgs import *
 from hkgmcwl.models import *
 from string import ascii_uppercase, ascii_lowercase, digits
 from base64 import b64encode, b64decode
@@ -53,3 +54,9 @@ def getClientIP(request):
     
 def genPassword(len):
     return ''.join(choice(ascii_uppercase + ascii_lowercase+ digits) for x in range(len))
+    
+def getErrorMessage(code):
+    try:
+        return "Error code {0}: {1}".format(code, errorMsgs[code])
+    except:
+        return "Error code {0}: {1}".format(code, "Unknown error")
