@@ -20,7 +20,6 @@ def error(request, code):
     return render(request, 'index.html', context)
     
 def confirmPage(request):
-    raise Exception(request.GET)
     try:
         isValid(request.GET)
     except Exception as e:
@@ -91,10 +90,10 @@ def isValid(dict):
     if len(findall("^[A-Za-z0-9_]+$", dict["mc_name"])) == 0:
         raise Exception("6") #Regex not match
         
-    if Whitelist.objects.filter(hkg_uid=hkg_uid):
+    if Whitelist.objects.filter(hkg_uid = dict["hkg_uid"]):
         raise Exception("7") #hkg_uid exists
         
-    if Whitelist.objects.filter(mc_name=mc_name):
+    if Whitelist.objects.filter(mc_name = dict["mc_name"]):
         raise Exception("8") #mc_name exists
 
     return True
