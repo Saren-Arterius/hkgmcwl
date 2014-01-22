@@ -14,10 +14,13 @@ import urllib.request
 @cache_page(60 * 15)
 def password(request):
     if request.GET:
-        if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
+        try:
+            if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
+                return HttpResponseRedirect("error/{0}".format(11))
+            else:
+                return HttpResponseRedirect("{0}".format(request.GET["hkg_uid"]))
+        except:
             return HttpResponseRedirect("error/{0}".format(11))
-        else:
-            return HttpResponseRedirect("{0}".format(request.GET["hkg_uid"]))
     else:
         return render(request, 'password.html', {})
 
