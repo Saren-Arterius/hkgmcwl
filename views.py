@@ -66,7 +66,7 @@ def confirmDo(request, base64encoded):
         cache.decr("reqTimesLeft_{0}".format(ip))
     raise Exception(reqTimesLeft)
     #else:
-        #return HttpResponseRedirect("error/{0}".format(50))
+        #return HttpResponseRedirect("error/{0}".format(50))a
         
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
