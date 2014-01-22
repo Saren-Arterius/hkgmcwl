@@ -29,7 +29,7 @@ def error(request, code):
     context = {"error": errorMsg}
     return render(request, 'index.html', context)
     
-def confirmPage(request, base64encoded):
+def validatePage(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     try:
@@ -37,9 +37,9 @@ def confirmPage(request, base64encoded):
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
     context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
-    return render(request, 'confirm.html', context)
+    return render(request, 'validate.html', context)
 
-def confirmError(request, base64encoded, code):
+def validateError(request, base64encoded, code):
     errorMsg = "Error code {0}".format(code)
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
@@ -48,15 +48,15 @@ def confirmError(request, base64encoded, code):
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
     context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14), "error": errorMsg}
-    return render(request, 'confirm.html', context)
+    return render(request, 'validate.html', context)
 
-def confirmSuccess(request, base64encoded):
+def validateSuccess(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     context = {"mc_name": data["mc_name"], "password": data["password"]}
     return render(request, 'success.html', context)
 
-def confirmDo(request, base64encoded):
+def validateDo(request, base64encoded):
     ip = getClientIP(request)
 
     reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
