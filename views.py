@@ -20,6 +20,7 @@ def error(request, code):
     return render(request, 'index.html', context)
     
 def confirmPage(request):
+    raise Exception(request.GET)
     try:
         isValid(request.GET)
     except Exception as e:
@@ -33,7 +34,6 @@ def confirm(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
-    raise Exception(data)
     try:
         isValid(data)
     except Exception as e:
