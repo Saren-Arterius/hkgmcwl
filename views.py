@@ -93,7 +93,7 @@ def confirmDo(request, base64encoded):
         newUser.save()
         payload = {"password": password, "mc_name": data["mc_name"]}
         jsonString = json.dumps(payload)
-        base64encoded = b64encode(jsonString.encode())
+        base64encoded = b64encode(jsonString.encode()).decode()
         return HttpResponseRedirect("../success/{0}".format(base64encoded))
 
 def isValid(dict):
