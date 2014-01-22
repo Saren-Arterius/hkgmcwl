@@ -49,7 +49,7 @@ def confirm(request, base64encoded):
     if not field:
         return HttpResponsePermanentRedirect("../error/{0}".format(100)) #Down server
     if field != base64encoded:  
-        return HttpResponsePermanentRedirect("../error/{0}--------{1}".format(field, base64encoded)) #Wrong
+        raise Exception(field+"11WTF11"+base64encoded)
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
