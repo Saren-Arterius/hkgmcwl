@@ -30,7 +30,6 @@ def confirmPage(request):
     return render(request, 'confirm.html', context)
 
 def confirm(request, base64encoded):
-    raise Exception(request.META["REMOTE_ADDR"])
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     field = False
@@ -100,6 +99,7 @@ def isValid(dict):
     return True
     
 def getClientIP(request):
+    raise Exception(request.META["REMOTE_ADDR"])
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
