@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     url(r'^success/(?P<base64encoded>.+)$', views.success, name='success'),
     
     url(r'^password/$', views.password, name='password'),
-    url('^password$', redirect_to, {'url': '^password/$'}),
+    url(r'^password$', 'redirect_to', {'url': r'^password/$'}),
     url(r'^password/error/(?P<code>\d*)$', views.passwordError, name='passwordError'),
     url(r'^password/(?P<hkg_uid>\d+)/error/(?P<code>\d*)$', views.passwordValidateError, name='passwordValidateError'),
     url(r'^password/(?P<hkg_uid>\d+)/validate$', views.passwordValidateDo, name='passwordValidateDo'),
