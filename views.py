@@ -12,17 +12,6 @@ from re import findall
 import urllib.request
 import json
 
-errorMsg = {
-    "1": "HKGolden user ID does not exist in request",
-    "2": "In-game name does not exist in request",
-    "3": "HKGolden user ID must be digits",
-    "4": "HKGolden user ID is too long",
-    "5": "In-game name's length must be in 3-20",
-    "6": "In-game name must be matching A to Z, a to z, 0 to 9, _",
-    "7": "HKGolden user ID already exists",
-    "8": "In-game already exists",
-    "50": "In-game already exists",
-}
 def index(request):
     if request.GET:
         try:
@@ -36,11 +25,11 @@ def index(request):
         return render(request, 'index.html', {})
     
 def error(request, code):
-    errorMsg = "Error code {0}: {1}".format(code, errorMsg[code])
+    errorMsg = "Error code {0}".format(code)
     context = {"error": errorMsg}
     return render(request, 'index.html', context)
     
-def validatePage(request, base64encoded):
+def confirmPage(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     try:
@@ -48,10 +37,10 @@ def validatePage(request, base64encoded):
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
     context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
-    return render(request, 'validate.html', context)
+    return render(request, 'confirm.html', context)
 
-def validateError(request, base64encoded, code):
-    errorMsg = "Error code {0}: {1}".format(code, errorMsg[code])
+def confirmError(request, base64encoded, code):
+    errorMsg = "Error code {0}".format(code)
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     try:
@@ -59,20 +48,20 @@ def validateError(request, base64encoded, code):
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
     context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14), "error": errorMsg}
-    return render(request, 'validate.html', context)
+    return render(request, 'confirm.html', context)
 
-def validateSuccess(request, base64encoded):
+def confirmSuccess(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     context = {"mc_name": data["mc_name"], "password": data["password"]}
     return render(request, 'success.html', context)
 
-def validateDo(request, base64encoded):
+def confirmDo(request, base64encoded):
     ip = getClientIP(request)
 
     reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
     if reqTimesLeft is None:
-        cache.add("reqTimesLeft_{0}".format(ip), 5, 900)
+        cache.add("reqTimesLeft_{0}".format(ip), 10, 1800)
     elif reqTimesLeft > 0:
         cache.decr("reqTimesLeft_{0}".format(ip))
     else:

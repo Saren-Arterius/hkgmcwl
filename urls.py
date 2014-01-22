@@ -5,8 +5,8 @@ from hkgmcwl import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^error/(?P<code>\d*)$', views.error, name='error'),
-    url(r'^success/(?P<base64encoded>.+)$', views.validateSuccess, name='validateSucess'),
-    url(r'^(?P<base64encoded>.+)/error/(?P<code>\d*)$', views.validateError, name='validateError'),
-    url(r'^(?P<base64encoded>.+)/validate$', views.validateDo, name='validateDo'),
-    url(r'^(?P<base64encoded>.+)$', views.validatePage, name='validatePage'),
+    url(r'^success/(?P<base64encoded>.+)$', views.confirmSuccess, name='confirmSucess'),
+    url(r'^(?P<base64encoded>.+)/error/(?P<code>\d*)$', views.confirmError, name='confirmError'),
+    url(r'^(?P<base64encoded>.+)/confirm$', views.confirmDo, name='confirmDo'),
+    url(r'^(?P<base64encoded>.+)$', views.confirmPage, name='confirmPage'),
 )
