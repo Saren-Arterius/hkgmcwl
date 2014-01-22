@@ -5,7 +5,8 @@ from hkgmcwl.jsonapi import *
 from hkgmcwl.models import *
 from pyquery import PyQuery as pq
 from base64 import b64encode, b64decode
-from random import randint
+from random import randint, choice
+from string import ascii_uppercase, ascii_lowercase, digits
 from time import time
 from re import findall
 import urllib.request
@@ -52,12 +53,15 @@ def confirmError(request, base64encoded, code):
 def confirmSuccess(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
-    raise Exception(data)
+    password = cache.get("password_{0}".format(data["hkg_uid"]))
+    context = {"mc_name": data["mc_name"], "password": password}
+    return render(request, 'success.html', context)
 
 def confirmDo(request, base64encoded):
     ip = getClientIP(request)
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
+    password = genPassword(16)
     field = False
     try:
         isValid(data)
@@ -82,11 +86,13 @@ def confirmDo(request, base64encoded):
     try:
         conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
+        conn.call("server.run_command", "authme register {0} {1}".format(data["mc_name"], password))
     except:
         return HttpResponseRedirect("error/{0}".format(102)) #Failed to communicate with server
     else:
-        newUser = Whitelist.objects.create(ip = ip, time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"])
+        newUser = Whitelist.objects.create(ip = ip, time = time(), mc_name = data["mc_name"], hkg_uid = data["hkg_uid"], init_password = password)
         newUser.save()
+        cache.set("password_{0}".format(data["hkg_uid"]), password, 15)
         return HttpResponseRedirect("success")
 
 def isValid(dict):
@@ -126,3 +132,5 @@ def getClientIP(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
     
+def genPassword(len):
+    return ''.join(choice(ascii_uppercase + ascii_lowercase+ digits) for x in range(len))
