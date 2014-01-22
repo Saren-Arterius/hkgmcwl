@@ -21,11 +21,13 @@ def password(request):
     else:
         return render(request, 'password.html', {})
 
+@cache_page(60 * 15)
 def passwordError(request, code):
     errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     context = {"error": errorMsg}
     return render(request, 'password.html', context)
     
+@cache_page(60 * 15)
 def passwordValidatePage(request, hkg_uid):
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
         return HttpResponseRedirect("error/{0}".format(11))
@@ -34,6 +36,7 @@ def passwordValidatePage(request, hkg_uid):
     context = {"hkg_uid": hkg_uid, "validateString": validateString, "server": randint(1,14), "href": hkg_uid}
     return render(request, 'validate.html', context)
 
+@cache_page(60 * 15)
 def passwordValidateError(request, code, hkg_uid):
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
         return HttpResponseRedirect("error/{0}".format(11))

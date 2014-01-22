@@ -1,3 +1,4 @@
+from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -13,6 +14,7 @@ from re import findall
 import urllib.request
 import json
 
+@cache_page(60 * 15)
 def index(request):
     if request.GET:
         try:
@@ -25,11 +27,13 @@ def index(request):
     else:
         return render(request, 'index.html', {})
 
+@cache_page(60 * 15)
 def error(request, code):
     errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     context = {"error": errorMsg}
     return render(request, 'index.html', context)
 
+@cache_page(60 * 15)
 def validatePage(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
@@ -40,6 +44,7 @@ def validatePage(request, base64encoded):
     context = {"hkg_uid": data["hkg_uid"], "validateString": base64encoded, "server": randint(1,14), "href": base64encoded}
     return render(request, 'validate.html', context)
 
+@cache_page(60 * 15)
 def validateError(request, base64encoded, code):
     errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     jsonString = b64decode(base64encoded).decode()

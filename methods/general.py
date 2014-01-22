@@ -1,3 +1,4 @@
+from django.views.decorators.cache import cache_page
 from django.shortcuts import render
 from hkgmcwl.models import *
 from string import ascii_uppercase, ascii_lowercase, digits
@@ -6,6 +7,7 @@ from random import choice
 from re import findall
 import json
 
+@cache_page(60 * 15)
 def success(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
