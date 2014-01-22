@@ -27,13 +27,13 @@ def confirmPage(request):
     return render(request, 'confirm.html', context)
 
 def confirm(request, base64encoded):
-    jsonString = b64decode(base64encoded.decode())
+    jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     raise Exception(data)
 
 
 def confirmError(request, base64encoded):
-    jsonString = b64decode(base64encoded.decode())
+    jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     raise Exception(data)
 
