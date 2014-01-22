@@ -29,6 +29,11 @@ def passwordValidatePage(request, base64encoded):
     context = {"hkg_uid": data["hkg_uid"], "base64encoded": base64encoded, "server": randint(1,14)}
     return render(request, 'validate.html', context)
 
+def passwordError(request, code):
+    errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
+    context = {"error": errorMsg}
+    return render(request, 'password.html', context)
+
 def passwordValidateError(request, code):
     errorMsg = "Error code {0}: {1}".format(code, errorMsgs[code])
     context = {"error": errorMsg}
