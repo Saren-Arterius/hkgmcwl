@@ -13,12 +13,10 @@ import json
 def password(request):
     if request.GET:
         try:
-            Whitelist.objects.filter(hkg_uid = dict["hkg_uid"])
-        except Exception as e:
-            return HttpResponseRedirect("error/{0}".format(e))
-        jsonString = json.dumps({"hkg_uid": request.GET["hkg_uid"], "mc_name": request.GET["mc_name"]})
-        base64encoded = b64encode(jsonString.encode())
-        return HttpResponseRedirect(base64encoded)
+            if not Whitelist.objects.filter(hkg_uid = request.GET["hkg_uid"]):
+        except Exception:
+            return HttpResponseRedirect("error/{0}".format(11))
+        return HttpResponseRedirect(request.GET["hkg_uid"])
     else:
         return render(request, 'password.html', {})
 

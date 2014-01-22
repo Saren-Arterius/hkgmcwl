@@ -7,6 +7,7 @@ errorMsgs = {
     "6": "In-game name must be matching A to Z, a to z, 0 to 9, _",
     "7": "HKGolden user ID already exists.",
     "8": "In-game name already exists.",
+    "11": "HKGolden user ID does not exist in database.",
     "50": "You requested validation too often. Please try 15 minutes later.",
     "100": "HKGolden is down, or blocked our access. Please try later.",
     "101": "The validate string is wrong. Please ensure that you have copied all the string using Ctrl+A and Ctrl+C.",
