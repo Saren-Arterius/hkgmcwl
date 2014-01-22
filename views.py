@@ -28,7 +28,7 @@ def confirmPage(request):
     return render(request, 'confirm.html', context)
 
 def confirm(request, base64encoded):
-    jsonString = b64decode(base64encoded)
+    jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     for server in range(1,15):
         try:
