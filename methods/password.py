@@ -64,7 +64,7 @@ def passwordValidateDo(request, hkg_uid):
             proxy = "http://www.luzi82.com/~wocky/47YJKv8ugn6sTN5I0BZ237l1/index.php?q={0}"
             hkgurl = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
             url = proxy.format(b64encode(hkgurl.encode()))
-            return url
+            raise Exception(url) 
             request = urllib.request.urlopen(url)
             page = request.read().decode("big5", "replace")
             field = pq(page)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
