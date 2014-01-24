@@ -56,14 +56,6 @@ def validateError(request, base64encoded, code):
 def validateDo(request, base64encoded):
     ip = getClientIP(request)
 
-    reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
-    if reqTimesLeft is None:
-        cache.add("reqTimesLeft_{0}".format(ip), 5, 900)
-    elif reqTimesLeft > 0:
-        cache.decr("reqTimesLeft_{0}".format(ip))
-    else:
-        return HttpResponseRedirect("error/{0}".format(50))
-        
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     password = genPassword(16)
@@ -72,6 +64,14 @@ def validateDo(request, base64encoded):
         isValid(data)
     except Exception as e:
         return HttpResponseRedirect("error/{0}".format(e))
+        
+    reqTimesLeft = cache.get("reqTimesLeft_{0}".format(ip))
+    if reqTimesLeft is None:
+        cache.add("reqTimesLeft_{0}".format(ip), 5, 900)
+    elif reqTimesLeft > 0:
+        cache.decr("reqTimesLeft_{0}".format(ip))
+    else:
+        return HttpResponseRedirect("error/{0}".format(50))
         
     for server in [randint(1,9) for i in range(3)]:
         try:
