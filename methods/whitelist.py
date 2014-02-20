@@ -90,7 +90,7 @@ def validateDo(request, base64encoded):
     elif field != base64encoded:  
         return HttpResponseRedirect("error/{0}".format(101)) #Wrong string
     try:
-        conn = MinecraftJsonApi(host = 'localhost', port = 44446, username = 'admin', password = 'password')
+        conn = MinecraftJsonApi(host = 'localhost', port = 6510, username = 'admin', password = 'password')
         conn.call("players.name.whitelist", data["mc_name"])
         conn.call("server.run_command", "authme register {0} {1}".format(data["mc_name"], password))
     except:
