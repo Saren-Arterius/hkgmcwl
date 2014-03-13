@@ -62,15 +62,12 @@ def passwordValidateDo(request, hkg_uid):
     from selenium import webdriver
     browser = webdriver.PhantomJS()
     for server in [randint(1,9) for i in range(3)]:
-        try:
-            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
-            browser.get(url)
-            elem = browser.find_element_by_xpath("//*")
-            html = elem.get_attribute("outerHTML")
-            field = pq(html)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
-            break
-        except:
-            pass
+        url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
+        browser.get(url)
+        elem = browser.find_element_by_xpath("//*")
+        html = elem.get_attribute("outerHTML")
+        field = pq(html)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
+        break
 
     if not field and field != "":
         return HttpResponseRedirect("error/{0}".format(100)) #Down server
