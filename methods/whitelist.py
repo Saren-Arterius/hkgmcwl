@@ -77,7 +77,7 @@ def validateDo(request, base64encoded):
     browser = webdriver.PhantomJS()
     for server in [randint(1,9) for i in range(3)]:
         try:
-            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
+            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, data["hkg_uid"])
             browser.get(url)
             elem = browser.find_element_by_xpath("//*")
             html = elem.get_attribute("outerHTML")
