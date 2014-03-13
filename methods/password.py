@@ -46,7 +46,6 @@ def passwordValidateError(request, code, hkg_uid):
     return render(request, 'validate.html', context)
     
 def passwordValidateDo(request, hkg_uid):
-    raise Exception(hkg_uid)
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
         return HttpResponseRedirect("error/{0}".format(11))
 
@@ -63,13 +62,15 @@ def passwordValidateDo(request, hkg_uid):
     from selenium import webdriver
     browser = webdriver.PhantomJS()
     for server in [randint(1,9) for i in range(3)]:
-        url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
-        browser.get(url)
-        elem = browser.find_element_by_xpath("//*")
-        html = elem.get_attribute("outerHTML")
-        
-        field = pq(html)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
-        break
+        try:
+            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
+            browser.get(url)
+            elem = browser.find_element_by_xpath("//*")
+            html = elem.get_attribute("outerHTML")
+            field = pq(html)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
+            break
+        except:
+            pass
 
     if not field and field != "":
         return HttpResponseRedirect("error/{0}".format(100)) #Down server
