@@ -71,6 +71,7 @@ def passwordValidateDo(request, hkg_uid):
             break
         except:
             pass
+    browser.close()
 
     if not field and field != "":
         return HttpResponseRedirect("error/{0}".format(100)) #Down server
