@@ -46,6 +46,7 @@ def passwordValidateError(request, code, hkg_uid):
     return render(request, 'validate.html', context)
     
 def passwordValidateDo(request, hkg_uid):
+    raise Exception(hkg_uid)
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
         return HttpResponseRedirect("error/{0}".format(11))
 
@@ -66,7 +67,7 @@ def passwordValidateDo(request, hkg_uid):
         browser.get(url)
         elem = browser.find_element_by_xpath("//*")
         html = elem.get_attribute("outerHTML")
-        raise Exception(html)
+        
         field = pq(html)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
         break
 
