@@ -59,14 +59,15 @@ def passwordValidateDo(request, hkg_uid):
     else:
         return HttpResponseRedirect("error/{0}".format(50))
         
+    from selenium import webdriver
+    browser = webdriver.PhantomJS()
     for server in [randint(1,9) for i in range(3)]:
         try:
-            proxy = "http://www.luzi82.com/~wocky/47YJKv8ugn6sTN5I0BZ237l1/index.php?q={0}"
-            hkgurl = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
-            url = proxy.format(b64encode(hkgurl.encode()).decode())
-            request = urllib.request.urlopen(url)
-            page = request.read().decode("big5", "replace")
-            field = pq(page)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
+            url = "http://forum{0}.hkgolden.com/ProfilePage.aspx?userid={1}".format(server, hkg_uid)
+            browser.get(url)
+            elem = browser.find_element_by_xpath("//*")
+            html = elem.get_attribute("outerHTML")
+            field = pq(html)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
             break
         except:
             pass
