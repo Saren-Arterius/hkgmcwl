@@ -66,6 +66,7 @@ def passwordValidateDo(request, hkg_uid):
         browser.get(url)
         elem = browser.find_element_by_xpath("//*")
         html = elem.get_attribute("outerHTML")
+        raise Exception(html)
         field = pq(html)("#ctl00_ContentPlaceHolder1_tc_Profile_tb0_lb_website").html()
         break
 
