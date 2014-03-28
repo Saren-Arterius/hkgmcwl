@@ -13,7 +13,7 @@ def success(request, base64encoded):
     jsonString = b64decode(base64encoded).decode()
     data = json.loads(jsonString)
     context = {"mc_name": data["mc_name"], "password": data["password"]}
-    return render(request, 'success.html', context)
+    return render(request, 'hkgmcwl/success.html', context)
 
 def isValid(dict):
     try:

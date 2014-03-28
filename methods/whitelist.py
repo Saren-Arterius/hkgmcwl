@@ -24,12 +24,12 @@ def index(request):
         base64encoded = b64encode(jsonString.encode())
         return HttpResponseRedirect(base64encoded)
     else:
-        return render(request, 'index.html', {})
+        return render(request, 'hkgmcwl/index.html', {})
 
 @cache_page(60 * 15)
 def error(request, code):
     context = {"error": getErrorMessage(code)}
-    return render(request, 'index.html', context)
+    return render(request, 'hkgmcwl/index.html', context)
 
 @cache_page(60 * 15)
 def validatePage(request, base64encoded):
@@ -40,7 +40,7 @@ def validatePage(request, base64encoded):
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
     context = {"hkg_uid": data["hkg_uid"], "validateString": base64encoded, "server": randint(1,14), "href": base64encoded}
-    return render(request, 'validate.html', context)
+    return render(request, 'hkgmcwl/validate.html', context)
 
 @cache_page(60 * 15)
 def validateError(request, base64encoded, code):
@@ -51,7 +51,7 @@ def validateError(request, base64encoded, code):
     except Exception as e:
         return HttpResponseRedirect("../error/{0}".format(e))
     context = {"hkg_uid": data["hkg_uid"], "validateString": base64encoded, "server": randint(1,14), "error": getErrorMessage(code), "href": base64encoded}
-    return render(request, 'validate.html', context)
+    return render(request, 'hkgmcwl/validate.html', context)
 
 def validateDo(request, base64encoded):
     ip = getClientIP(request)

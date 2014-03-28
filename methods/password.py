@@ -22,12 +22,12 @@ def password(request):
         except:
             return HttpResponseRedirect("password/error/{0}".format(11))
     else:
-        return render(request, 'password.html', {})
+        return render(request, 'hkgmcwl/password.html', {})
 
 @cache_page(60 * 15)
 def passwordError(request, code):
     context = {"error": getErrorMessage(code)}
-    return render(request, 'password.html', context)
+    return render(request, 'hkgmcwl/password.html', context)
 
 def passwordValidatePage(request, hkg_uid):
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
@@ -35,7 +35,7 @@ def passwordValidatePage(request, hkg_uid):
     cache.add("password_recovery_{0}".format(hkg_uid), genPassword(24))
     validateString = cache.get("password_recovery_{0}".format(hkg_uid))
     context = {"hkg_uid": hkg_uid, "validateString": validateString, "server": randint(1,14), "href": hkg_uid}
-    return render(request, 'validate.html', context)
+    return render(request, 'hkgmcwl/validate.html', context)
 
 def passwordValidateError(request, code, hkg_uid):
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
@@ -43,7 +43,7 @@ def passwordValidateError(request, code, hkg_uid):
     cache.add("password_recovery_{0}".format(hkg_uid), genPassword(24))
     validateString = cache.get("password_recovery_{0}".format(hkg_uid))
     context = {"hkg_uid": hkg_uid, "validateString": validateString, "server": randint(1,14), "href": hkg_uid, "error": getErrorMessage(code)}
-    return render(request, 'validate.html', context)
+    return render(request, 'hkgmcwl/validate.html', context)
     
 def passwordValidateDo(request, hkg_uid):
     if not Whitelist.objects.filter(hkg_uid = hkg_uid):
