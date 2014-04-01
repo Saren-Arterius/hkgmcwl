@@ -92,7 +92,7 @@ def passwordValidateDo(request, hkg_uid):
     data.init_password = newPassword
     data.save()
         
-    payload = {"password": data.init_password, "mc_name": data.mc_name}
+    payload = {"password": newPassword, "mc_name": data.mc_name}
     jsonString = json.dumps(payload)
     base64encoded = b64encode(jsonString.encode()).decode()
     cache.delete("password_recovery_{0}".format(hkg_uid))
