@@ -2,6 +2,7 @@ from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from hkgmcwl.jsonapi import *
 from hkgmcwl.models import *
 from hkgmcwl.methods.errormsgs import *
 from hkgmcwl.methods.general import *
