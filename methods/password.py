@@ -78,7 +78,10 @@ def passwordValidateDo(request, hkg_uid):
     elif field != cache.get("password_recovery_{0}".format(hkg_uid)):  
         return HttpResponseRedirect("error/{0}".format(101)) #Wrong string
     
-    data = Whitelist.objects.filter(hkg_uid = hkg_uid).all()
+    data = Whitelist.objects.get(hkg_uid = hkg_uid)
+    
+    raise Exception(data.mc_name)
+    
     for i in data:
         payload = {"password": i.init_password, "mc_name": i.mc_name}
     jsonString = json.dumps(payload)
