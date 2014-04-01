@@ -2,17 +2,16 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Whitelist registration - Success</title>
+		<title>白名單注冊 - 搞掂！</title>
         <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
 	</head>
     <body class='ui_basic login-page'>
         <div class='container'>
             <div class='content'>
                 <center>
-                    <h1>Success</h1>
-                    <p class='light'>You can go into Minecraft server from now. Remember: 1 account per HKGolden member.</p>
-                    <p class='light'>Your initial password is stored in plain text. Thus, please change your password in game using "/changepassword {{ password }} [password]"</p>
-                    <p class='light'>If you are existing player, simply use existing password to login.</p>
+                    <h1>搞掂！</h1>
+                    <p class='light'>是咁的，由呢秒開始，你可以入呢個server鳥。</p>
+                    <p class='light'>不過，下面呢個我比你既密碼又難記又唔安全(明文保存)，所以你都係快d入game打"/changepassword {{ password }} [password]"改改你個密碼。</p>
                 </center>
             </div>
         </div>
@@ -20,13 +19,13 @@
         <div class='container'>
             <div class='content'>
                 <div class='login-box'>
-                    <h3 class='page-title'>Login information</h3>
+                    <h3 class='page-title'>登入資料</h3>
                         <div style="margin:0;padding:0;display:inline"></div>
                         <input autofocus="autofocus" class="text top" id="user_login" placeholder="In-game name" type="text" value="{{ mc_name }}"/>
                         <input class="text bottom" id="user_password" placeholder="Initial Password" type="text" value="{{ password }}"/>
                     <hr>
-                    <p class='light' style="line-height:75%">Server address: www.wtako.net:6500</p>
-                    <p class='light' style="line-height:75%">Server map: <a href="http://www.wtako.net:6501">www.wtako.net:6501</a></p>
+                    <p class='light' style="line-height:75%">Server地址: www.wtako.net:6500</p>
+                    <p class='light' style="line-height:75%">Server地圖: <a href="http://www.wtako.net:6501">www.wtako.net:6501</a></p>
                     <p class='light' style="line-height:75%">Powered by: <a href="//forum.wtako.net">WTAKO SERVER</a></p>
                 </div>
             </div>

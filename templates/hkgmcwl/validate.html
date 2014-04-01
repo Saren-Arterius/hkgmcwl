@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Whitelist registration - Validation</title>
+		<title>白名單注冊 - 驗證帳戶</title>
         <link rel="stylesheet" type="text/css" href="{% static 'hkgmcwl/style.css' %}">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="{% static 'hkgmcwl/handle.js' %}"></script>
@@ -26,7 +26,7 @@
             <div class='content'>
                 <center>
                     <h1>Validation</h1>
-                    <p class='light'>Please paste the following code into <a href="http://forum{{ server }}.hkgolden.com/ProfilePage.aspx?userid={{ hkg_uid }}">個人網頁</a> on your HKGolden profile page.</p>    
+                    <p class='light'>唔該去一去<a href="http://forum{{ server }}.hkgolden.com/ProfilePage.aspx?userid={{ hkg_uid }}">呢度(你既Profile page)</a>，然後係個人網頁果欄貼下面段code。</p>    
                 </center>
             </div>
         </div>
@@ -34,19 +34,19 @@
         <div class='container'>
             <div class='content'>
                 <div class='login-box'>
-                    <h3 class='page-title'>Validate</h3>
+                    <h3 class='page-title'>驗證帳戶</h3>
                         <div style="margin:0;padding:0;display:inline"></div>
                         <input autofocus="autofocus" class="text" id="user_login" placeholder="Code" type="text" readonly="readonly" value="{{ validateString }}"/>
                         <div>
                             {% if error %}
-                            <button href="../validate" class="btn-create btn" style="margin-top:15px; font-family:'Helvetica Neue,Helvetica,Arial,sans-serif';"/>Validate</a> <!-- Oh shit -->
+                            <button href="../validate" class="btn-create btn" style="margin-top:15px; font-family:'Helvetica Neue,Helvetica,Arial,sans-serif';"/>其實唔難</a> <!-- Oh shit -->
                             {% else %}
-                            <button href="{{ href }}/validate" class="btn-create btn" style="margin-top:15px; font-family:'Helvetica Neue,Helvetica,Arial,sans-serif';"/>Validate</a> <!-- Oh shit -->
+                            <button href="{{ href }}/validate" class="btn-create btn" style="margin-top:15px; font-family:'Helvetica Neue,Helvetica,Arial,sans-serif';"/>實唔難</a> <!-- Oh shit -->
                             {% endif %}
                         </div>
                     <hr>
-                    <p class='light' style="line-height:75%">Server address: www.wtako.net:6500</p>
-                    <p class='light' style="line-height:75%">Server map: <a href="http://www.wtako.net:6501">www.wtako.net:6501</a></p>
+                    <p class='light' style="line-height:75%">Server地址: www.wtako.net:6500</p>
+                    <p class='light' style="line-height:75%">Server地圖: <a href="http://www.wtako.net:6501">www.wtako.net:6501</a></p>
                     <p class='light' style="line-height:75%">Powered by: <a href="//forum.wtako.net">WTAKO SERVER</a></p>
                 </div>
             </div>
