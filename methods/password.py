@@ -80,10 +80,18 @@ def passwordValidateDo(request, hkg_uid):
     
     data = Whitelist.objects.get(hkg_uid = hkg_uid)
     
-    raise Exception(data.mc_name)
-    
-    for i in data:
-        payload = {"password": i.init_password, "mc_name": i.mc_name}
+    newPassword = genPassword(16)
+
+    try:
+        conn = MinecraftJsonApi(host = 'localhost', port = 6510, username = 'admin', password = 'password')
+        conn.call("server.run_command", "authme changepassword {0} {1}".format(data.mc_name, newPassword))
+    except:
+        return HttpResponseRedirect("error/{0}".format(102)) #Failed to communicate with server
+        
+    data.init_password = newPassword
+    data.save()
+        
+    payload = {"password": data.init_password, "mc_name": data.mc_name}
     jsonString = json.dumps(payload)
     base64encoded = b64encode(jsonString.encode()).decode()
     cache.delete("password_recovery_{0}".format(hkg_uid))
